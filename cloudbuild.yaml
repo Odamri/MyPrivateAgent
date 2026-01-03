@@ -1,0 +1,17 @@
+steps:
+  - name: 'ghcr.io/cirruslabs/android-sdk:35'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        set -e
+        cd MyPrivateAgent
+        gradle --version
+        gradle :app:assembleDebug
+        cp app/build/outputs/apk/debug/app-debug.apk /workspace/app-debug.apk
+
+artifacts:
+  objects:
+    # החלף ל-bucket שלך (לדוגמה: gs://my-bucket/apks)
+    location: 'gs://REPLACE_WITH_YOUR_BUCKET/apks'
+    paths: ['app-debug.apk']
