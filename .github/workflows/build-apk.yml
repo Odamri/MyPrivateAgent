@@ -18,14 +18,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Make gradlew executable
-        run: chmod +x gradlew
-
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
+      - name: Build APK
+        working-directory: MyPrivateAgent
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: MyPrivateAgent-APK
-          path: app/build/outputs/apk/debug/*.apk
+          path: MyPrivateAgent/app/build/outputs/apk/debug/*.apk
